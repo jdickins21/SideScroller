@@ -93,7 +93,7 @@ public class UserInput : MonoBehaviour
 		h = Input.GetAxis ("Horizontal");
 
 		if (h < -0.1f) 
-			transform.Translate (Vector2.left * characterSpeed * h * Time.deltaTime);
+			transform.Translate (Vector2.right * characterSpeed * h * Time.deltaTime);
 		
 		if (h > 0.1f) 
 			transform.Translate (Vector2.right * characterSpeed * h * Time.deltaTime);
@@ -102,6 +102,12 @@ public class UserInput : MonoBehaviour
 
 	void Shoot()
 	{
+		Vector2 direction;
+		if (transform.localScale.x == 1) {
+			direction = Vector2.right;
+		} else {
+			direction = Vector2.left;
+		}
 		Vector2 mousePosition = new Vector2(Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
 		Vector2 firePointPosition = new Vector2 (bulletSpawnPoint.position.x, bulletSpawnPoint.position.y);
 		RaycastHit2D hit = Physics2D.Raycast (firePointPosition, mousePosition - firePointPosition, 2, whatToHit);
