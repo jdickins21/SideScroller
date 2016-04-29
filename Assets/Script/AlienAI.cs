@@ -18,7 +18,7 @@ public class AlienAI : MonoBehaviour
 	void Update()
 	{
 		player = GameObject.FindGameObjectWithTag ("Player");
-		transform.position = Vector2.MoveTowards (transform.position, player.transform.position, speed * Time.deltaTime);
+		//transform.position = Vector2.MoveTowards (transform.position, player.transform.position, speed * Time.deltaTime);
 	}
 
 	public void ApplyDamage(float damage)
