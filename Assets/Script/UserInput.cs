@@ -22,8 +22,15 @@ public class UserInput : MonoBehaviour
 	public float rateOfFire = 1;
 	public Transform bulletSpawnPoint;
 	public LayerMask whatToHit;
+	public GameObject bulletPrefab;
 
+	public GameObject bulletSpawnPistol;
+	public GameObject bulletSpawnShotgun;
+	public GameObject bulletSpawnRifle;
 
+	public GameObject bulletSpawn;
+
+	private WeaponControl weaponControl;
 	private Animator anim;
 	private Rigidbody2D rigidbody2D;
 
@@ -33,11 +40,11 @@ public class UserInput : MonoBehaviour
 		rigidbody2D = GetComponent<Rigidbody2D> ();
 		rateOfFire = maxRateOfFire;
 		curHealth = maxHealth;
+		weaponControl = GetComponent<WeaponControl> ();
 	}
 
 	void Update()
 	{
-
 		anim.SetFloat ("Speed", h);
 
 		if (rateOfFire > 0) 
@@ -57,8 +64,7 @@ public class UserInput : MonoBehaviour
 		{
 			transform.localScale = new Vector3 (-1, 1, 1);
 			GetComponentInChildren<ArmRotation> ().rotationOffset = 180;
-            
-        }
+		}
 
 		if (Input.GetAxis ("Horizontal") > 0.1f) 
 		{
@@ -86,37 +92,49 @@ public class UserInput : MonoBehaviour
 		{
 			GetComponent<WeaponControl> ().SwitchWeaponDown();
 		}
+
+		if (weaponControl.weaponID == 0)
+			bulletSpawn = bulletSpawnPistol;
+		if (weaponControl.weaponID == 1)
+			bulletSpawn = bulletSpawnShotgun;
+		if (weaponControl.weaponID == 2)
+			bulletSpawn = bulletSpawnRifle;
 	}
 
 	void FixedUpdate()
 	{
 		h = Input.GetAxis ("Horizontal");
 
-		if (h < -0.1f) 
-			transform.Translate (Vector2.right * characterSpeed * h * Time.deltaTime);
+		if (Input.GetAxis ("Horizontal") < -0.1f) 
+			transform.Translate (Vector2.left * characterSpeed * h * Time.deltaTime);
 		
-		if (h > 0.1f) 
+		if (Input.GetAxis ("Horizontal") > -0.1f) 
 			transform.Translate (Vector2.right * characterSpeed * h * Time.deltaTime);
 
 	}
 
 	void Shoot()
 	{
-		Vector2 direction;
-		if (transform.localScale.x == 1) {
-			direction = Vector2.right;
-		} else {
-			direction = Vector2.left;
-		}
 		Vector2 mousePosition = new Vector2(Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
 		Vector2 firePointPosition = new Vector2 (bulletSpawnPoint.position.x, bulletSpawnPoint.position.y);
-		RaycastHit2D hit = Physics2D.Raycast (firePointPosition, direction, 2, whatToHit);
+		RaycastHit2D hit = Physics2D.Raycast (firePointPosition, mousePosition - firePointPosition, 2, whatToHit);
 		Debug.DrawLine (firePointPosition, (mousePosition - firePointPosition) * 2);
+
+		Instantiate (bulletPrefab, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
+
 		if (hit.collider != null) 
 		{
 			if (hit.collider.gameObject.GetComponent<AlienAI> ()) 
 			{
 				hit.collider.gameObject.GetComponent<AlienAI> ().ApplyDamage (1);
+			}
+			if (hit.collider.gameObject.GetComponent<AlienBossAI> ()) 
+			{
+				hit.collider.gameObject.GetComponent<AlienBossAI> ().ApplyDamage (1);
+			}
+			if (hit.collider.gameObject.GetComponent<Rocket> ()) 
+			{
+				hit.collider.gameObject.GetComponent<Rocket> ().ApplyDamage (1);
 			}
 
 			Debug.DrawLine (firePointPosition, hit.point, Color.red);
@@ -129,6 +147,7 @@ public class UserInput : MonoBehaviour
 		curHealth -= damage;
 		if (curHealth <= 0) 
 		{
+			anim.SetTrigger ("Dead");
 			dead = true;
 		}
 	}

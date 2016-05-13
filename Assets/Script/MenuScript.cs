@@ -11,4 +11,14 @@ public class MenuScript : MonoBehaviour
 	{
 		Application.Quit ();
 	}
+
+	public void Restart()
+	{
+		Application.LoadLevel (Application.loadedLevel);
+	}
+
+	public void MainMenu()
+	{
+		Application.LoadLevel (0);
+	}
 }

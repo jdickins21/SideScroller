@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 7b3e96026e5c3054eb575e8f640c5909
-timeCreated: 1461702205
+timeCreated: 1462058080
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -13,6 +13,7 @@ TextureImporter:
     21300012: Pistol
     21300014: Shotgun
     21300016: Rifle
+    21300018: BulletParticle
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -174,6 +175,18 @@ TextureImporter:
         height: 13
       alignment: 9
       pivot: {x: 0.271187, y: 0.6441609}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - name: BulletParticle
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 14
+        width: 22
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
