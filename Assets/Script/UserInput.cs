@@ -106,7 +106,7 @@ public class UserInput : MonoBehaviour
 		h = Input.GetAxis ("Horizontal");
 
 		if (Input.GetAxis ("Horizontal") < -0.1f) 
-			transform.Translate (Vector2.left * characterSpeed * h * Time.deltaTime);
+			transform.Translate (Vector2.right * characterSpeed * h * Time.deltaTime);
 		
 		if (Input.GetAxis ("Horizontal") > -0.1f) 
 			transform.Translate (Vector2.right * characterSpeed * h * Time.deltaTime);
