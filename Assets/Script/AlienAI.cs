@@ -9,17 +9,25 @@ public class AlienAI : MonoBehaviour
 	public float speed;
 
 	private GameManager gameManager;
+	private Vector2 target;
 
 	void Awake()
 	{
 		gameManager = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GameManager>();
 		player = GameObject.FindGameObjectWithTag ("Player");
+	
 	}
 
 	void Update()
 	{
-
-		transform.position = Vector2.MoveTowards (transform.position, player.transform.position, speed * Time.deltaTime);
+		target = new Vector2 (player.transform.position.x, player.transform.position.y);
+		if (player.transform.position.y + .3f > transform.position.y) {
+			transform.position = Vector2.MoveTowards (transform.position, (target + new Vector2(0, .7f)), speed * Time.deltaTime);
+		} else if (player.transform.position.y - .3f < transform.position.y) {
+			transform.position = Vector2.MoveTowards (transform.position, (target - new Vector2(0, .7f)), speed * Time.deltaTime);
+		} else {
+			transform.position = Vector2.MoveTowards (transform.position, target, speed * Time.deltaTime);
+		}
 	}
 
 	public void ApplyDamage(float damage)
