@@ -4,24 +4,30 @@ using System.Collections;
 public class WeaponControl : MonoBehaviour {
 
 	public AudioClip[] audioClip;
+    public AudioSource source;
+    public AudioClip gunChange;
 	public GameObject[] weapons;
 	public int weaponID = 0;
 
 	public void SwitchWeaponUp()
 	{
 		weaponID++;
-		SwitchWeapon ();
-	}
+        source.PlayOneShot(gunChange, 1.0f);
+        SwitchWeapon ();
+
+    }
 
 	public void SwitchWeaponDown()
 	{
 		weaponID--;
-		SwitchWeapon ();
-	}
+        source.PlayOneShot(gunChange, 1.0f);
+        SwitchWeapon ();
+    }
 
 	public void SwitchWeapon()
 	{
-		if (weaponID > weapons.Length -1) 
+        
+        if (weaponID > weapons.Length -1) 
 		{
 			weaponID = 0;
 		}
@@ -53,6 +59,5 @@ public class WeaponControl : MonoBehaviour {
 			weapons [2].SetActive (true);
 			GetComponent<AudioSource> ().clip = audioClip [2];
 		}
-
-	}
+    }
 }

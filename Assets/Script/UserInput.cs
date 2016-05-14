@@ -34,6 +34,9 @@ public class UserInput : MonoBehaviour
 	private Animator anim;
 	private Rigidbody2D rigidbody2D;
 
+    public AudioSource source;
+    public AudioClip jump;
+
 	void Awake()
 	{
 		anim = GetComponent<Animator> ();
@@ -81,7 +84,8 @@ public class UserInput : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.Space) && onGround)
 		{
 			rigidbody2D.AddForce (Vector2.up * 1000 * jumpHeight);
-			anim.SetTrigger ("Jump");
+            source.PlayOneShot(jump, 1.0f);
+            anim.SetTrigger ("Jump");
 		}
 
 		if (Input.GetKeyDown (KeyCode.Q)) 
