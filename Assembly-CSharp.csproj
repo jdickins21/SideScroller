@@ -48,6 +48,7 @@
      <Compile Include="Assets\Script\AlienAI.cs" />
      <Compile Include="Assets\Script\AlienBossAI.cs" />
      <Compile Include="Assets\Script\ArmRotation.cs" />
+     <Compile Include="Assets\Script\ButtonScript.cs" />
      <Compile Include="Assets\Script\EnemyManager.cs" />
      <Compile Include="Assets\Script\Explosion.cs" />
      <Compile Include="Assets\Script\GameManager.cs" />
