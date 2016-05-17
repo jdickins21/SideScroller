@@ -1,10 +1,10 @@
-﻿<Properties StartupItem="SideScroller.CSharp.csproj">
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/AlienAI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/ButtonScript.cs">
     <Files>
-      <File FileName="Assets/Script/UserInput.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/UserInput.cs" Line="27" Column="34" />
       <File FileName="Assets/Script/GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/AlienAI.cs" Line="15" Column="3" />
+      <File FileName="Assets/Script/AlienAI.cs" Line="14" Column="2" />
       <File FileName="Assets/Script/AlienBossAI.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/ArmRotation.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/EnemyManager.cs" Line="6" Column="31" />
@@ -12,7 +12,8 @@
       <File FileName="Assets/Script/HUDManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/MenuScript.cs" Line="1" Column="1" />
       <File FileName="Assets/Script/Rocket.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/WeaponControl.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/WeaponControl.cs" Line="43" Column="25" />
+      <File FileName="Assets/Script/ButtonScript.cs" Line="15" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
