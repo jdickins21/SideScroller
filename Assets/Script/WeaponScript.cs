@@ -11,24 +11,24 @@ public class WeaponScript: MonoBehaviour  {
 	public string gunName;
 	public UserInput player;
 
-	public bool getUnlocked(string gunName){
-		if (gunName == "pistol") {
+	public bool getUnlocked(string name){
+		if (name == "pistol") {
 			return pistolUnlocked;
-		} else if (gunName == "rifle") {
+		} else if (name == "rifle") {
 			return rifleUnlocked;
-		} else if (gunName == "shotgun") {
+		} else if (name == "shotgun") {
 			return shotgunUnlocked;
 		} else {
 			return false;
 		}
 	}
 
-	public void setUnlock(string gunName){
-		if (gunName == "pistol") {
+	public void setUnlock(string name){
+		if (name == "pistol") {
 			return;
-		} else if (gunName == "rifle") {
+		} else if (name == "rifle") {
 			rifleUnlocked = true;
-		} else if (gunName == "shotgun") {
+		} else if (name == "shotgun") {
 			shotgunUnlocked = true;
 		} else {
 			return;
@@ -36,10 +36,10 @@ public class WeaponScript: MonoBehaviour  {
 		print (pistolUnlocked + " " + rifleUnlocked + " " + shotgunUnlocked);
 	}
 
-	public int getCost(string gunName){
-		 if (gunName == "rifle") {
+	public int getCost(string name){
+		 if (name == "rifle") {
 			return rifleCost;
-		} else if (gunName == "shotgun") {
+		} else if (name == "shotgun") {
 			return shotgunCost;
 		} else {
 			return 0;
@@ -47,11 +47,10 @@ public class WeaponScript: MonoBehaviour  {
 
 	}
 
-	public void attemptPurchase(string gunName){
-		if (player.loseMoney(getCost(gunName))){
-			setUnlock(gunName);
+	public void attemptPurchase(string name){
+		if (player.loseMoney(getCost(name))){
+			setUnlock(name);
 			return;
 		}
-		print (player.getGold());
 	}
 }
