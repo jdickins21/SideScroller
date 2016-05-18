@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HUDManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class HUDManager : MonoBehaviour
 	public GameObject winnerText;
 	public GameObject loseText;
 	public GameObject[] allEnemies;
+	public int currLevel;
 	public int nextLevel;
 
 	void Awake()
@@ -22,9 +24,7 @@ public class HUDManager : MonoBehaviour
 	void Update()
 	{
 		killedCount.text = gameManager.currentKilledAliens + "/" + gameManager.aliensHaveToKill;
-
-		if(player.GetComponent<UserInput> ().curHealth > 0)
-			health.fillAmount = player.GetComponent<UserInput> ().curHealth/player.GetComponent<UserInput> ().maxHealth;
+		health.fillAmount = player.GetComponent<UserInput> ().curHealth/player.GetComponent<UserInput> ().maxHealth;
 
 		if (gameManager.winner) 
 		{
@@ -46,13 +46,13 @@ public class HUDManager : MonoBehaviour
 	IEnumerator waitWinSecs()
 	{
 		yield return new WaitForSeconds (2f);
-		Application.LoadLevel (nextLevel);
+		SceneManager.LoadScene (nextLevel, LoadSceneMode.Single);
 	}
 
 	IEnumerator waitDeadSecs()
 	{
 		yield return new WaitForSeconds (2f);
-		Application.LoadLevel (Application.loadedLevel);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
 }
