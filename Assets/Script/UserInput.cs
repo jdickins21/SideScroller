@@ -20,9 +20,6 @@ public class UserInput : MonoBehaviour
 	[Header("Weapon")]
 	public float maxRateOfFire = 1;
 	public float rateOfFire = 1;
-
-	public static int gold = 0;
-
 	public Transform bulletSpawnPoint;
 	public LayerMask whatToHit;
 	public GameObject bulletPrefab;
@@ -36,9 +33,6 @@ public class UserInput : MonoBehaviour
 	private WeaponControl weaponControl;
 	private Animator anim;
 	private Rigidbody2D rigidbody2D;
-
-    public AudioSource source;
-    public AudioClip jump;
 
 	void Awake()
 	{
@@ -87,8 +81,7 @@ public class UserInput : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.Space) && onGround)
 		{
 			rigidbody2D.AddForce (Vector2.up * 1000 * jumpHeight);
-            source.PlayOneShot(jump, 1.0f);
-            anim.SetTrigger ("Jump");
+			anim.SetTrigger ("Jump");
 		}
 
 		if (Input.GetKeyDown (KeyCode.Q)) 
@@ -113,7 +106,7 @@ public class UserInput : MonoBehaviour
 		h = Input.GetAxis ("Horizontal");
 
 		if (Input.GetAxis ("Horizontal") < -0.1f) 
-			transform.Translate (Vector2.right * characterSpeed * h * Time.deltaTime);
+			transform.Translate (Vector2.left * characterSpeed * h * Time.deltaTime);
 		
 		if (Input.GetAxis ("Horizontal") > -0.1f) 
 			transform.Translate (Vector2.right * characterSpeed * h * Time.deltaTime);
@@ -157,19 +150,5 @@ public class UserInput : MonoBehaviour
 			anim.SetTrigger ("Dead");
 			dead = true;
 		}
-	}
-
-	public bool loseMoney(int cost){
-		int goldTemp = gold;
-		if ((gold -= cost) >= 0) {
-			gold -= cost;
-			return true;
-		}
-		gold = goldTemp;
-		return false;
-	}
-
-	public int getGold(){
-		return gold;
 	}
 }

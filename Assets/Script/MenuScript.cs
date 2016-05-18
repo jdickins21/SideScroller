@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
 	public void StartGame()
 	{
-		SceneManager.LoadScene (1, LoadSceneMode.Single);
+		Application.LoadLevel (1);
 	}
 	public void Exit()
 	{
@@ -15,20 +14,11 @@ public class MenuScript : MonoBehaviour
 
 	public void Restart()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		Application.LoadLevel (Application.loadedLevel);
 	}
 
 	public void MainMenu()
 	{
-		SceneManager.LoadScene (0, LoadSceneMode.Single);
-	}
-
-	public static void EnterShop(){
-		
-		SceneManager.LoadScene (6, LoadSceneMode.Single);
-	}
-
-	public static void ExitShop(int curlevel){
-		SceneManager.LoadScene (curlevel, LoadSceneMode.Single);
+		Application.LoadLevel (0);
 	}
 }
