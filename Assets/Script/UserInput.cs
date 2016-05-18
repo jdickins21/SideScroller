@@ -20,6 +20,9 @@ public class UserInput : MonoBehaviour
 	[Header("Weapon")]
 	public float maxRateOfFire = 1;
 	public float rateOfFire = 1;
+
+	public static int gold = 0;
+
 	public Transform bulletSpawnPoint;
 	public LayerMask whatToHit;
 	public GameObject bulletPrefab;
@@ -154,5 +157,19 @@ public class UserInput : MonoBehaviour
 			anim.SetTrigger ("Dead");
 			dead = true;
 		}
+	}
+
+	public bool loseMoney(int cost){
+		int goldTemp = gold;
+		if ((gold -= cost) >= 0) {
+			gold -= cost;
+			return true;
+		}
+		gold = goldTemp;
+		return false;
+	}
+
+	public int getGold(){
+		return gold;
 	}
 }

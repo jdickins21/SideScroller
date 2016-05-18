@@ -6,7 +6,7 @@ public class WeaponControl : MonoBehaviour {
 	public AudioClip[] audioClip;
     public AudioSource source;
     public AudioClip gunChange;
-	public ButtonScript[] weapons;
+	public WeaponScript[] weapons;
 	public int weaponID = 0;
 
 	public void SwitchWeaponUp()

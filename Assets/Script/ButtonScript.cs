@@ -1,42 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
-public class ButtonScript : MonoBehaviour  {
+public class ButtonScript : Button {
 
-	public static bool pistolUnlocked = true;
-	public static bool rifleUnlocked = false;
-	public static bool shotgunUnlocked = false;
-	public string gunName;
-	public GameObject player;
-
-	void Awake()
-	{
-		player = GameObject.FindGameObjectWithTag ("Player");
-
-	}
-
-	public bool getUnlocked(string gunName){
-		if (gunName == "pistol") {
-			return pistolUnlocked;
-		} else if (gunName == "rifle") {
-			return rifleUnlocked;
-		} else if (gunName == "shotgun") {
-			return shotgunUnlocked;
-		} else {
-			return false;
+	public void rifleButton(){
+		if(WeaponScript.rifleUnlocked == true){
+			this.interactable = false;
 		}
 	}
 
-	public void buttonAction(string gunName){
-		if (gunName == "pistol") {
-			return;
-		} else if (gunName == "rifle") {
-			rifleUnlocked = true;
-		} else if (gunName == "shotgun") {
-			shotgunUnlocked = true;
-		} else {
-			return;
+	public void shotgunButton(){
+		if(WeaponScript.shotgunUnlocked == true){
+			this.interactable = false;
 		}
-		print (pistolUnlocked + " " + rifleUnlocked + " " + shotgunUnlocked);
 	}
 }
