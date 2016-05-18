@@ -7,21 +7,27 @@ public class AlienAI : MonoBehaviour
 	public float health;
 	public GameObject explosion;
 	public float speed;
-	public GameObject healthPrefab;
-	public GameObject[] weaponPrefab;
 
 	private GameManager gameManager;
+	private Vector2 target;
 
 	void Awake()
 	{
 		gameManager = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GameManager>();
 		player = GameObject.FindGameObjectWithTag ("Player");
+	
 	}
 
 	void Update()
 	{
-
-		transform.position = Vector2.MoveTowards (transform.position, player.transform.position, speed * Time.deltaTime);
+		target = new Vector2 (player.transform.position.x, player.transform.position.y);
+		if (player.transform.position.y + .3f > transform.position.y) {
+			transform.position = Vector2.MoveTowards (transform.position, (target + new Vector2(0, .7f)), speed * Time.deltaTime);
+		} else if (player.transform.position.y - .3f < transform.position.y) {
+			transform.position = Vector2.MoveTowards (transform.position, (target - new Vector2(0, .7f)), speed * Time.deltaTime);
+		} else {
+			transform.position = Vector2.MoveTowards (transform.position, target, speed * Time.deltaTime);
+		}
 	}
 
 	public void ApplyDamage(float damage)
@@ -31,18 +37,6 @@ public class AlienAI : MonoBehaviour
 		{
 			Instantiate (explosion, transform.position, Quaternion.identity);
 			gameManager.currentKilledAliens++;
-			int r = Random.Range (0, 2);
-			if (r == 1)
-			{
-				Instantiate (healthPrefab, transform.position, Quaternion.identity);
-			}
-			int r2 = Random.Range (0, 6);
-			if (r2 == 3)
-			{
-				int r3 = Random.Range (0, weaponPrefab.Length +1);
-				Instantiate (weaponPrefab[r3], transform.position, Quaternion.identity);
-			}
-
 			Destroy (this.gameObject);
 		}
 	}
