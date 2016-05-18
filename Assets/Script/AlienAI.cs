@@ -39,11 +39,11 @@ public class AlienAI : MonoBehaviour
 			Instantiate (explosion, transform.position, Quaternion.identity);
 			gameManager.currentKilledAliens++;
 			int r = Random.Range (0, 10);
-			if (r % 3 == 0)
+			if (r % 3 == 0 && r != 6)
 			{
 				Instantiate (healthPrefab, transform.position, Quaternion.identity);
 			}
-			if (r % 1 == 0)
+			if (r % 2 == 0)
 			{
 				Instantiate (goldPrefab, transform.position, Quaternion.identity);
 			}

@@ -169,6 +169,10 @@ public class UserInput : MonoBehaviour
 		return false;
 	}
 
+	public void gainMoney(int amount){
+		gold += amount;
+	}
+
 	public int getGold(){
 		return gold;
 	}

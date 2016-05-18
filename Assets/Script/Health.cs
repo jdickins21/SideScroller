@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GoldScript : MonoBehaviour {
+public class Health : MonoBehaviour 
+{
+	public float healthAmount;
 
-	private int goldVal = 1;
 	private GameObject player;
 
 	void Awake()
@@ -15,7 +16,7 @@ public class GoldScript : MonoBehaviour {
 	{
 		if (other.gameObject.tag == "Player") 
 		{		
-			player.GetComponent<UserInput> ().gainMoney (goldVal);
+			player.GetComponent<UserInput> ().ApplyDamage (-healthAmount);
 
 			Destroy (this.gameObject);
 		}
