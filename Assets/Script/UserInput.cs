@@ -21,7 +21,7 @@ public class UserInput : MonoBehaviour
 	public float maxRateOfFire = 1;
 	public float rateOfFire = 1;
 
-	public static int gold = 0;
+	public static int gold = 10;
 
 	public Transform bulletSpawnPoint;
 	public LayerMask whatToHit;
@@ -42,7 +42,6 @@ public class UserInput : MonoBehaviour
 	private int weaponDmg = 1;
 	private int pauseNum = 0;
 
-	private static  int pAmmo = -1;
 	private static int  rAmmo = 0;
 	private static int sAmmo = 0;
 	private string gunOut = "pistol";

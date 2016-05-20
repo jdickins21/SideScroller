@@ -9,6 +9,7 @@ public class HUDManager : MonoBehaviour
 	public GameManager gameManager;
 	public Text killedCount;
 	public Image health;
+	public Text coinCount;
 	public GameObject winnerText;
 	public GameObject loseText;
 	public GameObject pause;
@@ -16,6 +17,7 @@ public class HUDManager : MonoBehaviour
 	public int currLevel;
 	public int nextLevel;
 	public GameObject nxtLvl;
+	public GameObject shop;
 
 	void Awake()
 	{
@@ -26,14 +28,16 @@ public class HUDManager : MonoBehaviour
 	void Update()
 	{
 		killedCount.text = gameManager.currentKilledAliens + "/" + gameManager.aliensHaveToKill;
+		coinCount.text = player.GetComponent<UserInput> ().getGold ().ToString();
 		health.fillAmount = player.GetComponent<UserInput> ().curHealth/player.GetComponent<UserInput> ().maxHealth;
 
 		if (gameManager.winner) 
 		{
-			winnerText.SetActive (true);
+//			winnerText.SetActive (true);
 			nxtLvl.SetActive (true);
-			waitWinner ();
-			winnerText.SetActive (false);
+			shop.SetActive (true);
+//			waitWinner ();
+//			winnerText.SetActive (false);
 		}
 
 		if (player.GetComponent<UserInput> ().dead) 
@@ -62,5 +66,13 @@ public class HUDManager : MonoBehaviour
 	IEnumerator waitWinner()
 	{
 		yield return new WaitForSeconds (5f);
+	}
+
+	public int getCurrlvl(){
+		return currLevel;
+	}
+
+	public int getNextlvl(){
+		return nextLevel;
 	}
 }
