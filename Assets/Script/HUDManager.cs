@@ -11,9 +11,11 @@ public class HUDManager : MonoBehaviour
 	public Image health;
 	public GameObject winnerText;
 	public GameObject loseText;
+	public GameObject pause;
 	public GameObject[] allEnemies;
 	public int currLevel;
 	public int nextLevel;
+	public GameObject nxtLvl;
 
 	void Awake()
 	{
@@ -29,30 +31,36 @@ public class HUDManager : MonoBehaviour
 		if (gameManager.winner) 
 		{
 			winnerText.SetActive (true);
-			allEnemies = GameObject.FindGameObjectsWithTag ("Enemy");
-			for (int i = 0; i < allEnemies.Length; i++) {
-				Destroy (allEnemies [i]);
-			}
-			StartCoroutine (waitWinSecs());
+			nxtLvl.SetActive (true);
+			waitWinner ();
+			winnerText.SetActive (false);
 		}
 
 		if (player.GetComponent<UserInput> ().dead) 
 		{
 			loseText.SetActive (true);
-			StartCoroutine (waitDeadSecs());
+			allEnemies = GameObject.FindGameObjectsWithTag ("Enemy");
+			for (int i = 0; i < allEnemies.Length; i++) {
+				Destroy (allEnemies [i]);
+			}
 		}
 	}
 
-	IEnumerator waitWinSecs()
+	public void nextLvl()
 	{
-		yield return new WaitForSeconds (2f);
 		SceneManager.LoadScene (nextLevel, LoadSceneMode.Single);
 	}
 
-	IEnumerator waitDeadSecs()
-	{
-		yield return new WaitForSeconds (2f);
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+	public void pauseMen(){
+		if(!pause.activeSelf){
+			pause.SetActive (true);
+			return;
+		}
+		pause.SetActive (false);
 	}
 
+	IEnumerator waitWinner()
+	{
+		yield return new WaitForSeconds (5f);
+	}
 }

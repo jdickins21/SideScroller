@@ -33,9 +33,20 @@ public class UserInput : MonoBehaviour
 
 	public GameObject bulletSpawn;
 
+	public HUDManager HUD;
+
 	private WeaponControl weaponControl;
 	private Animator anim;
 	private Rigidbody2D rigidbody2D;
+	private int weaponRng = 2;
+	private int weaponDmg = 1;
+	private int pauseNum = 0;
+
+	private static  int pAmmo = -1;
+	private static int  rAmmo = 0;
+	private static int sAmmo = 0;
+	private string gunOut = "pistol";
+
 
     public AudioSource source;
     public AudioClip jump;
@@ -93,19 +104,36 @@ public class UserInput : MonoBehaviour
 
 		if (Input.GetKeyDown (KeyCode.Q)) 
 		{
-			GetComponent<WeaponControl> ().SwitchWeaponUp();
+			GetComponent<WeaponControl> ().SwitchWeaponUp(weaponRng, weaponDmg);
 		}
 		if (Input.GetKeyDown (KeyCode.E)) 
 		{
-			GetComponent<WeaponControl> ().SwitchWeaponDown();
+			GetComponent<WeaponControl> ().SwitchWeaponDown(weaponRng, weaponDmg);
+		}
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			if (pauseNum == 0) {
+				GameManager.pause ();
+				HUD.pauseMen ();
+				pauseNum = 1;
+				return;
+			}
+			pauseNum = 0;
+			GameManager.play ();
+			HUD.pauseMen ();
 		}
 
-		if (weaponControl.weaponID == 0)
+		if (weaponControl.weaponID == 0) {
 			bulletSpawn = bulletSpawnPistol;
-		if (weaponControl.weaponID == 1)
-			bulletSpawn = bulletSpawnShotgun;
-		if (weaponControl.weaponID == 2)
+			gunOut = "pistol";
+		}
+		if (weaponControl.weaponID == 1) {
 			bulletSpawn = bulletSpawnRifle;
+			gunOut = "rifle";
+		}
+		if (weaponControl.weaponID == 2) {
+			bulletSpawn = bulletSpawnShotgun;
+			gunOut = "shotgun";
+		}
 	}
 
 	void FixedUpdate()
@@ -122,10 +150,13 @@ public class UserInput : MonoBehaviour
 
 	void Shoot()
 	{
+		if (!loseAmmo(gunOut)) {
+			return;
+		}
 		Vector2 mousePosition = new Vector2(Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
 		Vector2 firePointPosition = new Vector2 (bulletSpawnPoint.position.x, bulletSpawnPoint.position.y);
-		RaycastHit2D hit = Physics2D.Raycast (firePointPosition, mousePosition - firePointPosition, 2, whatToHit);
-		Debug.DrawLine (firePointPosition, (mousePosition - firePointPosition) * 2);
+		RaycastHit2D hit = Physics2D.Raycast (firePointPosition, mousePosition - firePointPosition, weaponRng, whatToHit);
+		Debug.DrawLine (firePointPosition, (mousePosition - firePointPosition) * weaponRng);
 
 		Instantiate (bulletPrefab, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
 
@@ -133,15 +164,15 @@ public class UserInput : MonoBehaviour
 		{
 			if (hit.collider.gameObject.GetComponent<AlienAI> ()) 
 			{
-				hit.collider.gameObject.GetComponent<AlienAI> ().ApplyDamage (1);
+				hit.collider.gameObject.GetComponent<AlienAI> ().ApplyDamage (weaponDmg);
 			}
 			if (hit.collider.gameObject.GetComponent<AlienBossAI> ()) 
 			{
-				hit.collider.gameObject.GetComponent<AlienBossAI> ().ApplyDamage (1);
+				hit.collider.gameObject.GetComponent<AlienBossAI> ().ApplyDamage (weaponDmg);
 			}
 			if (hit.collider.gameObject.GetComponent<Rocket> ()) 
 			{
-				hit.collider.gameObject.GetComponent<Rocket> ().ApplyDamage (1);
+				hit.collider.gameObject.GetComponent<Rocket> ().ApplyDamage (weaponDmg);
 			}
 
 			Debug.DrawLine (firePointPosition, hit.point, Color.red);
@@ -175,5 +206,38 @@ public class UserInput : MonoBehaviour
 
 	public int getGold(){
 		return gold;
+	}
+
+	public void setGold(int num){
+		gold = num;
+	}
+
+	public bool loseAmmo(string gun){
+		if (gun == "pistol"){
+			return true;
+		}
+		if (gun == "rifle") {
+			if (rAmmo == 0) {
+				return false;
+			}
+			rAmmo -= 1;
+			return true;
+		}
+		if (gun == "shotgun") {
+			if (sAmmo == 0) {
+				return false;
+			}
+			sAmmo -= 1;
+			return true;
+		}
+		return false;
+	}
+
+	public void buyRammo(){
+		rAmmo += 20;
+	}
+
+	public void buySammo(){
+		sAmmo += 20;
 	}
 }

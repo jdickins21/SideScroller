@@ -15,12 +15,12 @@ public class EnemyManager : MonoBehaviour
 		gameManager = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GameManager>();
     }
 
-	void Update()
-	{
-		if (gameManager.winner) {
-			Destroy (this.gameObject);
-		}
-	}
+	//void Update()
+	//{
+	//	if (gameManager.winner) {
+	//		Destroy (this.gameObject);
+	//	}
+	//}
     void Spawn ()
     {
 		

@@ -9,7 +9,7 @@ public class WeaponControl : MonoBehaviour {
 	public WeaponScript[] weapons;
 	public int weaponID = 0;
 
-	public void SwitchWeaponUp()
+	public void SwitchWeaponUp(int rng, int dmg)
 	{
 		weaponID++;
 		if (weaponID > weapons.Length -1) 
@@ -27,9 +27,12 @@ public class WeaponControl : MonoBehaviour {
 		print ("Up " + weaponID);
         SwitchWeapon ();
 
+		rng = weapons [weaponID].getRng(weapons [weaponID].gunName);
+		dmg = weapons [weaponID].getDmg (weapons [weaponID].gunName);
+
     }
 
-	public void SwitchWeaponDown()
+	public void SwitchWeaponDown(int rng, int dmg)
 	{
 		weaponID--;
 		if (weaponID < 0) 
@@ -45,7 +48,10 @@ public class WeaponControl : MonoBehaviour {
 		}
         source.PlayOneShot(gunChange, 1.0f);
 		print ("Down " + weaponID);
-        SwitchWeapon ();
+		SwitchWeapon ();
+
+		rng = weapons [weaponID].getRng(weapons [weaponID].gunName);
+		dmg = weapons [weaponID].getDmg (weapons [weaponID].gunName);
     }
 
 	public void SwitchWeapon()
@@ -75,4 +81,6 @@ public class WeaponControl : MonoBehaviour {
 			GetComponent<AudioSource> ().clip = audioClip [2];
 		}
     }
+
+
 }

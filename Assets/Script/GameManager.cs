@@ -19,4 +19,12 @@ public class GameManager : MonoBehaviour
 			winner = true;
 		}
 	}
+
+	public static void pause(){
+		Time.timeScale = 0;
+	}
+
+	public static void play(){
+		Time.timeScale = 1;
+	}
 }
