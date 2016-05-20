@@ -58,6 +58,7 @@
      <Compile Include="Assets\Script\MenuScript.cs" />
      <Compile Include="Assets\Script\Rocket.cs" />
      <Compile Include="Assets\Script\ShopScript.cs" />
+     <Compile Include="Assets\Script\SpawnPointAnim.cs" />
      <Compile Include="Assets\Script\UserInput.cs" />
      <Compile Include="Assets\Script\WeaponControl.cs" />
      <Compile Include="Assets\Script\WeaponScript.cs" />

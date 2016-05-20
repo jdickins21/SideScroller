@@ -88,4 +88,28 @@ public class WeaponScript: MonoBehaviour  {
 		}
 		return 0;
 	}
+
+	public void incGunRange(string gun){
+		if (gun == "pistol") {
+			pRange += 1;
+		}
+		if (gun == "rifle") {
+			rRange += 1;
+		}
+		if (gun == "shotgun") {
+			sRange += 1;
+		}
+	}
+
+	public void incGunDmg(string gun){
+		if (gun == "pistol") {
+			pDmg += 1;
+		}
+		if (gun == "rifle") {
+			rDmg += 1;
+		}
+		if (gun == "shotgun") {
+			sDmg += 1;
+		}
+	}
 }
