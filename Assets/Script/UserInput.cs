@@ -49,11 +49,12 @@ public class UserInput : MonoBehaviour
 
     public AudioSource source;
     public AudioClip jump;
+	public AudioClip empty;
 
 	void Awake()
 	{
-		anim = GetComponent<Animator> ();
 		rigidbody2D = GetComponent<Rigidbody2D> ();
+		anim = GetComponent<Animator> ();
 		rateOfFire = maxRateOfFire;
 		curHealth = maxHealth;
 		weaponControl = GetComponent<WeaponControl> ();
@@ -150,6 +151,7 @@ public class UserInput : MonoBehaviour
 	void Shoot()
 	{
 		if (!loseAmmo(gunOut)) {
+			source.PlayOneShot(empty, 1.0f);
 			return;
 		}
 		Vector2 mousePosition = new Vector2(Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
