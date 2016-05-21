@@ -5,7 +5,10 @@ public class GameManager : MonoBehaviour
 {
 	public int aliensHaveToKill;
 	public int currentKilledAliens;
+	public int tooManyAliens;
 	public bool winner;
+
+	public GameObject[] ground;
 
 	public void KilledAlien()
 	{
@@ -17,6 +20,15 @@ public class GameManager : MonoBehaviour
 		if (currentKilledAliens >= aliensHaveToKill) 
 		{
 			winner = true;
+		}
+
+		if (currentKilledAliens == tooManyAliens) 
+		{
+			int i = 0;
+			while(ground[i] != null){
+				Destroy (ground [i]);
+				i++;
+			}
 		}
 	}
 
