@@ -81,12 +81,14 @@ public class UserInput : MonoBehaviour
 		{
 			transform.localScale = new Vector3 (-1, 1, 1);
 			GetComponentInChildren<ArmRotation> ().rotationOffset = 180;
+			GetComponentInChildren<ArmRotation> ().zRotation = -1;
 		}
 
 		if (Input.GetAxis ("Horizontal") > 0.1f) 
 		{
 			transform.localScale = new Vector3 (1, 1, 1);
 			GetComponentInChildren<ArmRotation> ().rotationOffset = 0;
+			GetComponentInChildren<ArmRotation> ().zRotation = 1;
 		}
 
 		if (rigidbody2D.velocity.y == 0) {

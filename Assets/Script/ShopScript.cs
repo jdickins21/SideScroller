@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ShopScript : MonoBehaviour {
 
-	public int currLvl;
+	private static int currLvl = 1;
 	public UserInput player;
 	public WeaponScript weapons;
 	public GameObject notEnough;
@@ -21,30 +21,31 @@ public class ShopScript : MonoBehaviour {
 	private int RDU = 150;
 	private int SDU = 200;
 
+	private static bool rifleUnlock = false;
+	private static bool shotgunUnlock = false;
+
 	void Update(){
 		coinCount.text = player.getGold ().ToString();
 	}
 
-	public void enterShopOnWin(HUDManager hud){
-		currLvl = hud.getNextlvl();
-		print (currLvl);
-		print (hud.nextLevel);
+	public void enterShopOnWin(int level){
+		currLvl = level;
 		MenuScript.EnterShop ();
-		if (weapons.getUnlocked ("rifle") == true) {
+		if (rifleUnlock == true) {
 			rifle.interactable = false;
 		}
-		if (weapons.getUnlocked ("shotgun") == true) {
+		if (shotgunUnlock == true) {
 			shotgun.interactable = false;
 		}
 	}
 
-	public void enterShopOnLose(HUDManager hud){
-		currLvl = hud.getCurrlvl();
+	public void enterShopOnLose(int level){
+		currLvl = level;
 		MenuScript.EnterShop ();
-		if (weapons.getUnlocked ("rifle") == true) {
+		if (rifleUnlock == true) {
 			rifle.interactable = false;
 		}
-		if (weapons.getUnlocked ("shotgun") == true) {
+		if (shotgunUnlock == true) {
 			shotgun.interactable = false;
 		}
 	}
@@ -59,6 +60,12 @@ public class ShopScript : MonoBehaviour {
 			player.setGold ((tempGold - weapons.getCost (gun)));
 			weapons.setUnlock (gun);
 			coinCount.text = player.getGold ().ToString();
+			if (gun == "rifle") {
+				rifleUnlock = true;
+			}
+			if (gun == "shotgun") {
+				shotgunUnlock = true;
+			}
 		} else {
 			notEnough.SetActive (true);
 		//	print ("not enough");
