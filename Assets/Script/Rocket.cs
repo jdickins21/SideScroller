@@ -11,6 +11,8 @@ public class Rocket : MonoBehaviour
 
 	private float health = 1;
 	private Rigidbody2D rigidbody2D;
+	private Vector2 target;
+	private float speed = 2;
 
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -21,11 +23,14 @@ public class Rocket : MonoBehaviour
 
 	void Update()
 	{
-		if(right)
-			transform.Translate (transform.right * 1 * Time.deltaTime);
-
-		if(left)
-			transform.Translate (transform.right * - 1 * 1 * Time.deltaTime);	
+		target = new Vector2 (player.transform.position.x, player.transform.position.y);
+		if (player.transform.position.y + .3f > transform.position.y) {
+			transform.position = Vector2.MoveTowards (transform.position, (target + new Vector2(0, .7f)), speed * Time.deltaTime);
+		} else if (player.transform.position.y - .3f < transform.position.y) {
+			transform.position = Vector2.MoveTowards (transform.position, (target - new Vector2(0, .7f)), speed * Time.deltaTime);
+		} else {
+			transform.position = Vector2.MoveTowards (transform.position, target, speed * Time.deltaTime);
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D other)

@@ -43,6 +43,8 @@ public class HUDManager : MonoBehaviour
 		if (player.GetComponent<UserInput> ().dead) 
 		{
 			loseText.SetActive (true);
+			nxtLvl.SetActive (false);
+			shop.SetActive (false);
 			allEnemies = GameObject.FindGameObjectsWithTag ("Enemy");
 			for (int i = 0; i < allEnemies.Length; i++) {
 				Destroy (allEnemies [i]);

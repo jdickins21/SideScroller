@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 		if (currentKilledAliens == tooManyAliens) 
 		{
 			int i = 0;
-			while(ground[i] != null){
+			if(ground[i] != null){
 				Destroy (ground [i]);
 				i++;
 			}

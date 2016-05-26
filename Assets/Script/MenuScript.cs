@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
+
 	public void StartGame()
 	{
 		SceneManager.LoadScene (1, LoadSceneMode.Single);
@@ -16,19 +17,24 @@ public class MenuScript : MonoBehaviour
 	public void Restart()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		Time.timeScale = 1;
+
 	}
 
 	public void MainMenu()
 	{
 		SceneManager.LoadScene (0, LoadSceneMode.Single);
+		Time.timeScale = 1;
 	}
 
 	public static void EnterShop(){
 		
 		SceneManager.LoadScene (6, LoadSceneMode.Single);
+		Time.timeScale = 1;
 	}
 
 	public static void ExitShop(int curlevel){
 		SceneManager.LoadScene (curlevel, LoadSceneMode.Single);
+		Time.timeScale = 1;
 	}
 }

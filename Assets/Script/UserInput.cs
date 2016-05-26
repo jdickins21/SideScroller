@@ -51,6 +51,7 @@ public class UserInput : MonoBehaviour
     public AudioClip jump;
 	public AudioClip empty;
 
+
 	void Awake()
 	{
 		rigidbody2D = GetComponent<Rigidbody2D> ();
@@ -62,6 +63,7 @@ public class UserInput : MonoBehaviour
 
 	void Update()
 	{
+
 		anim.SetFloat ("Speed", h);
 
 		if (rateOfFire > 0) 
@@ -69,22 +71,21 @@ public class UserInput : MonoBehaviour
 			rateOfFire -= Time.deltaTime;
 		}
 
-		if (Input.GetMouseButton(0) && rateOfFire < 0) 
+		if (Input.GetMouseButton(0) && rateOfFire < 0 && getPausenum() == 0) 
 		{
 			anim.SetTrigger ("Shoot");
 			rateOfFire = maxRateOfFire;
-			GetComponent<AudioSource> ().Play();
 			Shoot ();
 		}
 
-		if (Input.GetAxis ("Horizontal") < -0.1f) 
+		if (Input.GetAxis ("Horizontal") < -0.1f && getPausenum() == 0) 
 		{
 			transform.localScale = new Vector3 (-1, 1, 1);
 			GetComponentInChildren<ArmRotation> ().rotationOffset = 180;
 			GetComponentInChildren<ArmRotation> ().zRotation = -1;
 		}
 
-		if (Input.GetAxis ("Horizontal") > 0.1f) 
+		if (Input.GetAxis ("Horizontal") > 0.1f && getPausenum() == 0) 
 		{
 			transform.localScale = new Vector3 (1, 1, 1);
 			GetComponentInChildren<ArmRotation> ().rotationOffset = 0;
@@ -97,29 +98,29 @@ public class UserInput : MonoBehaviour
 			onGround = false;
 		}
 
-		if (Input.GetKeyDown (KeyCode.Space) && onGround)
+		if (Input.GetKeyDown (KeyCode.Space) && onGround && getPausenum() == 0)
 		{
 			rigidbody2D.AddForce (Vector2.up * 1000 * jumpHeight);
             source.PlayOneShot(jump, 1.0f);
             anim.SetTrigger ("Jump");
 		}
 
-		if (Input.GetKeyDown (KeyCode.Q)) 
+		if (Input.GetKeyDown (KeyCode.Q) && getPausenum() == 0) 
 		{
 			GetComponent<WeaponControl> ().SwitchWeaponUp(weaponRng, weaponDmg);
 		}
-		if (Input.GetKeyDown (KeyCode.E)) 
+		if (Input.GetKeyDown (KeyCode.E) && getPausenum() == 0) 
 		{
 			GetComponent<WeaponControl> ().SwitchWeaponDown(weaponRng, weaponDmg);
 		}
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-			if (pauseNum == 0) {
+			if (getPausenum() == 0) {
 				GameManager.pause ();
 				HUD.pauseMen ();
 				pauseNum = 1;
 				return;
 			}
-			pauseNum = 0;
+			pauseNumZero ();
 			GameManager.play ();
 			HUD.pauseMen ();
 		}
@@ -142,10 +143,10 @@ public class UserInput : MonoBehaviour
 	{
 		h = Input.GetAxis ("Horizontal");
 
-		if (Input.GetAxis ("Horizontal") < -0.1f) 
+		if (Input.GetAxis ("Horizontal") < -0.1f && getPausenum() == 0) 
 			transform.Translate (Vector2.right * characterSpeed * h * Time.deltaTime);
 		
-		if (Input.GetAxis ("Horizontal") > -0.1f) 
+		if (Input.GetAxis ("Horizontal") > -0.1f && getPausenum() == 0) 
 			transform.Translate (Vector2.right * characterSpeed * h * Time.deltaTime);
 
 	}
@@ -156,6 +157,7 @@ public class UserInput : MonoBehaviour
 			source.PlayOneShot(empty, 1.0f);
 			return;
 		}
+		GetComponent<AudioSource> ().Play();
 		Vector2 mousePosition = new Vector2(Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
 		Vector2 firePointPosition = new Vector2 (bulletSpawnPoint.position.x, bulletSpawnPoint.position.y);
 		RaycastHit2D hit = Physics2D.Raycast (firePointPosition, mousePosition - firePointPosition, weaponRng, whatToHit);
@@ -190,6 +192,7 @@ public class UserInput : MonoBehaviour
 		{
 			anim.SetTrigger ("Dead");
 			dead = true;
+			pauseNumOne ();
 		}
 	}
 
@@ -242,5 +245,17 @@ public class UserInput : MonoBehaviour
 
 	public void buySammo(){
 		sAmmo += 20;
+	}
+
+	public void pauseNumZero(){
+		pauseNum = 0;
+	}
+
+	public void pauseNumOne(){
+		pauseNum = 1;
+	}
+
+	public int getPausenum(){
+		return pauseNum;
 	}
 }
