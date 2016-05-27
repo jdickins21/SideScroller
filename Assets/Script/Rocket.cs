@@ -8,6 +8,7 @@ public class Rocket : MonoBehaviour
 	public bool left;
 	public GameObject player;
 	public GameObject explosion;
+	public GameObject boss;
 
 	private float health = 1;
 	private Rigidbody2D rigidbody2D;
@@ -16,8 +17,9 @@ public class Rocket : MonoBehaviour
 
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
+		boss = GameObject.FindGameObjectWithTag ("Boss");
 		rigidbody2D = GetComponent<Rigidbody2D> ();
-
+		Physics2D.IgnoreCollision(boss.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 		Destroy (this.gameObject, 15f);
 	}
 
