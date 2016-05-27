@@ -78,14 +78,21 @@
     <Compile Include="Assets\Script\AlienAI.cs" />
     <Compile Include="Assets\Script\AlienBossAI.cs" />
     <Compile Include="Assets\Script\ArmRotation.cs" />
+    <Compile Include="Assets\Script\ButtonScript.cs" />
     <Compile Include="Assets\Script\EnemyManager.cs" />
     <Compile Include="Assets\Script\Explosion.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
+    <Compile Include="Assets\Script\GoldScript.cs" />
     <Compile Include="Assets\Script\HUDManager.cs" />
+    <Compile Include="Assets\Script\Health.cs" />
+    <Compile Include="Assets\Script\Kill.cs" />
     <Compile Include="Assets\Script\MenuScript.cs" />
     <Compile Include="Assets\Script\Rocket.cs" />
+    <Compile Include="Assets\Script\ShopScript.cs" />
+    <Compile Include="Assets\Script\SpawnPointAnim.cs" />
     <Compile Include="Assets\Script\UserInput.cs" />
     <Compile Include="Assets\Script\WeaponControl.cs" />
+    <Compile Include="Assets\Script\WeaponScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
