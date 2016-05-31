@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/Farm.unity
+=======
+- path: Assets/Scenes/Controls.unity
+>>>>>>> origin/master
   isLoaded: 1
   isActive: 1
