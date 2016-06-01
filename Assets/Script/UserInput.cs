@@ -47,6 +47,7 @@ public class UserInput : MonoBehaviour
 	private static int  rAmmo = 0;
 	private static int sAmmo = 0;
 	private string gunOut = "pistol";
+	private bool inControlls;
 
 
     public AudioSource source;
@@ -122,6 +123,10 @@ public class UserInput : MonoBehaviour
 				GameManager.pause ();
 				HUD.pauseMen ();
 				pauseNum = 1;
+				return;
+			}
+			if (inControlls) {
+				HUD.exitControlls ();
 				return;
 			}
 			pauseNumZero ();
@@ -278,5 +283,9 @@ public class UserInput : MonoBehaviour
 
 	public void setAmmo(Text ammoCount, int count){
 		ammoCount.text = count.ToString ();
+	}
+
+	public void setInControlls(bool ifIn){
+		inControlls = ifIn;
 	}
 }

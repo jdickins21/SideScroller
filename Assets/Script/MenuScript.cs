@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 public class MenuScript : MonoBehaviour
 {
 
+	public GameObject controlls;
+
 	public void StartGame()
 	{
 		SceneManager.LoadScene (1, LoadSceneMode.Single);
@@ -36,5 +38,13 @@ public class MenuScript : MonoBehaviour
 	public static void ExitShop(int curlevel){
 		SceneManager.LoadScene (curlevel, LoadSceneMode.Single);
 		Time.timeScale = 1;
+	}
+
+	public void setControllsActive(){
+		controlls.SetActive (true);
+	}
+
+	public void exitControlls(){
+		controlls.SetActive (false);
 	}
 }

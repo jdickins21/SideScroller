@@ -13,6 +13,7 @@ public class HUDManager : MonoBehaviour
 	public GameObject winnerText;
 	public GameObject loseText;
 	public GameObject pause;
+	public GameObject controlls;
 	public GameObject[] allEnemies;
 	public int currLevel;
 	public int nextLevel;
@@ -78,6 +79,18 @@ public class HUDManager : MonoBehaviour
 
 	public int getNextlvl(){
 		return nextLevel;
+	}
+
+	public void setControllsActive(){
+		pause.SetActive (false);
+		controlls.SetActive (true);
+		player.GetComponent<UserInput> ().setInControlls (true);
+	}
+
+	public void exitControlls(){
+		controlls.SetActive (false);
+		pause.SetActive (true);
+		player.GetComponent<UserInput> ().setInControlls (false);
 	}
 
 	public void weaponSwitch(int num){
