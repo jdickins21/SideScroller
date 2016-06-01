@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class UserInput : MonoBehaviour 
 {
@@ -41,6 +42,7 @@ public class UserInput : MonoBehaviour
 	private int weaponRng = 2;
 	private int weaponDmg = 1;
 	private int pauseNum = 0;
+	private static int wepIndex;
 
 	private static int  rAmmo = 0;
 	private static int sAmmo = 0;
@@ -107,11 +109,13 @@ public class UserInput : MonoBehaviour
 
 		if (Input.GetKeyDown (KeyCode.Q) && getPausenum() == 0) 
 		{
-			GetComponent<WeaponControl> ().SwitchWeaponUp(weaponRng, weaponDmg);
+			wepIndex = GetComponent<WeaponControl> ().SwitchWeaponUp(weaponRng, weaponDmg);
+			HUD.weaponSwitch (wepIndex);
 		}
 		if (Input.GetKeyDown (KeyCode.E) && getPausenum() == 0) 
 		{
-			GetComponent<WeaponControl> ().SwitchWeaponDown(weaponRng, weaponDmg);
+			wepIndex = GetComponent<WeaponControl> ().SwitchWeaponDown(weaponRng, weaponDmg);
+			HUD.weaponSwitch (wepIndex);
 		}
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			if (getPausenum() == 0) {
@@ -227,6 +231,7 @@ public class UserInput : MonoBehaviour
 				return false;
 			}
 			rAmmo -= 1;
+			setAmmo (HUD.ammoCount, rAmmo);
 			return true;
 		}
 		if (gun == "shotgun") {
@@ -234,6 +239,7 @@ public class UserInput : MonoBehaviour
 				return false;
 			}
 			sAmmo -= 1;
+			setAmmo (HUD.ammoCount, sAmmo);
 			return true;
 		}
 		return false;
@@ -257,5 +263,20 @@ public class UserInput : MonoBehaviour
 
 	public int getPausenum(){
 		return pauseNum;
+	}
+
+	public int getAmmo(int num){
+		if (num == 0) {
+			return 999;
+		}else if (num == 1) {
+			return rAmmo;
+		}else if (num == 2) {
+			return sAmmo;
+		}
+		return -1;
+	}
+
+	public void setAmmo(Text ammoCount, int count){
+		ammoCount.text = count.ToString ();
 	}
 }

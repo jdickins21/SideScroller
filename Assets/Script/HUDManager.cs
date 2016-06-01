@@ -18,6 +18,8 @@ public class HUDManager : MonoBehaviour
 	public int nextLevel;
 	public GameObject nxtLvl;
 	public GameObject shop;
+	public GameObject[] gunHud;
+	public Text ammoCount;
 
 	void Awake()
 	{
@@ -76,5 +78,24 @@ public class HUDManager : MonoBehaviour
 
 	public int getNextlvl(){
 		return nextLevel;
+	}
+
+	public void weaponSwitch(int num){
+		if (num == 0) {
+			gunHud [0].gameObject.SetActive (true);
+			gunHud [1].gameObject.SetActive (false);
+			gunHud [2].gameObject.SetActive (false);
+			ammoCount.text = player.GetComponent<UserInput> ().getAmmo (num).ToString ();
+		}else if (num == 1) {
+			gunHud [0].gameObject.SetActive (false);
+			gunHud [1].gameObject.SetActive (true);
+			gunHud [2].gameObject.SetActive (false);
+			ammoCount.text = player.GetComponent<UserInput> ().getAmmo (num).ToString ();
+		}else if (num == 2) {
+			gunHud [0].gameObject.SetActive (false);
+			gunHud [1].gameObject.SetActive (false);
+			gunHud [2].gameObject.SetActive (true);
+			ammoCount.text = player.GetComponent<UserInput> ().getAmmo (num).ToString ();
+		}
 	}
 }

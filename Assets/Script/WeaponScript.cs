@@ -4,7 +4,7 @@ using System.Collections;
 public class WeaponScript: MonoBehaviour  {
 
 	public static bool pistolUnlocked = true;
-	public static bool rifleUnlocked = true;
+	public static bool rifleUnlocked = false;
 	public static bool shotgunUnlocked = false;
 	public static int rifleCost = 25;
 	public static int shotgunCost = 40;
