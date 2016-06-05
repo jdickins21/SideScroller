@@ -22,7 +22,7 @@ public class UserInput : MonoBehaviour
 	public float maxRateOfFire = 1;
 	public float rateOfFire = 1;
 
-	public static int gold = 0;
+	public static int gold = 900;
 
 	public Transform bulletSpawnPoint;
 	public LayerMask whatToHit;
