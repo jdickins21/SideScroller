@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class AlienBossAI : MonoBehaviour
 {
@@ -37,6 +38,8 @@ public class AlienBossAI : MonoBehaviour
 		{
 			Instantiate (explosion, transform.position, Quaternion.identity);
 			Destroy (this.gameObject);
+			OnEnter.setCount (2);
+			SceneManager.LoadScene (0, LoadSceneMode.Single);
 		}
 
 	}

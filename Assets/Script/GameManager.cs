@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour 
 {
@@ -9,6 +10,47 @@ public class GameManager : MonoBehaviour
 	public bool winner;
 
 	public GameObject[] ground;
+
+	public AudioClip levelSong;
+
+	public MovieTexture openingVid;
+
+	private static MovieTexture currVid;
+
+	public EnemyManager enemy;
+	public UserInput player;
+
+	private AudioSource audioSource;
+
+	void Awake(){
+		audioSource = GetComponent<AudioSource> ();
+		currVid = openingVid;
+		StartCoroutine(playVid ());
+	}
+
+	public IEnumerator playVid(){
+		if (currVid != null) {
+			enemy.setCanSpawn (false);
+			player.pauseNumOne ();
+			audioSource.clip = currVid.audioClip;
+			audioSource.loop = false;
+			audioSource.clip = currVid.audioClip;
+			audioSource.Play();
+			currVid.Play ();
+			yield return new WaitForSeconds(currVid.audioClip.length);
+			audioSource.clip = levelSong;
+			audioSource.loop = true;
+			audioSource.Play ();
+			enemy.setCanSpawn (true);
+			player.pauseNumZero ();
+		}
+	}
+
+	void OnGUI(){
+		if (currVid != null && currVid.isPlaying) {
+			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), currVid);
+		}
+	}
 
 	public void KilledAlien()
 	{
@@ -39,4 +81,5 @@ public class GameManager : MonoBehaviour
 	public static void play(){
 		Time.timeScale = 1;
 	}
+
 }

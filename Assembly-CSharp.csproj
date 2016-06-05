@@ -57,6 +57,7 @@
      <Compile Include="Assets\Script\Health.cs" />
      <Compile Include="Assets\Script\Kill.cs" />
      <Compile Include="Assets\Script\MenuScript.cs" />
+     <Compile Include="Assets\Script\OnEnter.cs" />
      <Compile Include="Assets\Script\Rocket.cs" />
      <Compile Include="Assets\Script\ShopScript.cs" />
      <Compile Include="Assets\Script\SpawnPointAnim.cs" />

@@ -8,6 +8,8 @@ public class EnemyManager : MonoBehaviour
 
 	public GameManager gameManager;
 
+	private static bool canSpawn = true;
+
     void Start ()
     {
         InvokeRepeating ("Spawn", spawnTime, spawnTime);
@@ -22,9 +24,14 @@ public class EnemyManager : MonoBehaviour
 	//}
     void Spawn ()
     {
-		
-        int spawnPointIndex = Random.Range (0, spawnPoints.Length - 1);
-        Instantiate (enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
-		spawnPoints [spawnPointIndex].GetComponent<SpawnPointAnim> ().teleportAnim ();
+		if (canSpawn) {
+			int spawnPointIndex = Random.Range (0, spawnPoints.Length - 1);
+			Instantiate (enemy, spawnPoints [spawnPointIndex].position, spawnPoints [spawnPointIndex].rotation);
+			spawnPoints [spawnPointIndex].GetComponent<SpawnPointAnim> ().teleportAnim ();
+		}
     }
+
+	public void setCanSpawn(bool can){
+		canSpawn = can;
+	}
 }
