@@ -27,7 +27,9 @@ public class EnemyManager : MonoBehaviour
 		if (canSpawn) {
 			int spawnPointIndex = Random.Range (0, spawnPoints.Length - 1);
 			Instantiate (enemy, spawnPoints [spawnPointIndex].position, spawnPoints [spawnPointIndex].rotation);
-			spawnPoints [spawnPointIndex].GetComponent<SpawnPointAnim> ().teleportAnim ();
+			if (spawnPoints [spawnPointIndex].GetComponent<SpawnPointAnim> () != null) {
+				spawnPoints [spawnPointIndex].GetComponent<SpawnPointAnim> ().teleportAnim ();
+			}
 		}
     }
 
