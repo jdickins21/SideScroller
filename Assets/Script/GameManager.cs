@@ -22,10 +22,24 @@ public class GameManager : MonoBehaviour
 
 	private AudioSource audioSource;
 
+	private static bool openingPlayed = false;
+
 	void Awake(){
 		audioSource = GetComponent<AudioSource> ();
-		currVid = openingVid;
-		StartCoroutine(playVid ());
+
+		if (openingVid != null && !openingPlayed) {
+			currVid = openingVid;
+			StartCoroutine (playVid ());
+			openingPlayed = true;
+		} else {
+			audioSource.clip = levelSong;
+			audioSource.loop = true;
+			audioSource.Play ();
+			if (enemy != null) {
+				enemy.setCanSpawn (true);
+			}
+			player.pauseNumZero ();
+		}
 	}
 
 	public IEnumerator playVid(){
@@ -37,13 +51,15 @@ public class GameManager : MonoBehaviour
 			audioSource.clip = currVid.audioClip;
 			audioSource.Play();
 			currVid.Play ();
-			yield return new WaitForSeconds(currVid.audioClip.length);
-			audioSource.clip = levelSong;
-			audioSource.loop = true;
-			audioSource.Play ();
-			enemy.setCanSpawn (true);
-			player.pauseNumZero ();
+			if (currVid.isPlaying) {
+				yield return new WaitForSeconds (currVid.audioClip.length);
+			}
 		}
+		audioSource.clip = levelSong;
+		audioSource.loop = true;
+		audioSource.Play ();
+		enemy.setCanSpawn (true);
+		player.pauseNumZero ();
 	}
 
 	void OnGUI(){
